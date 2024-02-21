@@ -1,0 +1,43 @@
+/* The message box is shown when the user clicks on the password field */
+.confirm-message {
+    margin-top: 5px;
+    color: #000;
+    position: absolute;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+    color: #5CB85C;
+}
+
+.valid:before {
+    position: relative;
+    content: "✔ ";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+    color: #D9534F;
+}
+
+.invalid:before {
+    position: relative;
+    content: "✖ ";
+}
+
+.success-message{
+    color:#5CB85C;
+    font-weight: bolder;
+}
+.success-message:before {
+    position: relative;
+    content: "✔ ";
+}
+.error-message{
+    color:#D9534F;
+    font-weight: bolder;
+}
+.error-message:before {
+    position: relative;
+    content: "✖ ";
+}

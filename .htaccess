@@ -1,0 +1,40 @@
+## Turn on rewrite engine
+RewriteEngine on
+Options -Indexes +FollowSymLinks
+
+# Remove trailing slash from non-filepath urls
+#RewriteCond %{REQUEST_URI} /(.+)/$
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^ https://www.sdn30dompu.my.id/%1 [R=301,L]
+
+# Include trailing slash on directory 
+#RewriteCond %{REQUEST_URI} !(.+)/$
+#RewriteCond %{REQUEST_FILENAME} -d
+#RewriteRule ^(.+)$ https://www.sdn30dompu.my.id/$1/ [R=301,L]
+
+# Force HTTPS and WWW 
+#RewriteCond %{HTTP_HOST} !^www\.(.*)$ [OR,NC]
+#RewriteCond %{https} off  
+#RewriteRule ^(.*)$ https://www.sdn30dompu.my.id/$1 [R=301,L]
+
+# Handle my links
+RewriteRule ^$ sistem [L]
+
+RewriteRule ^404$ appweb/Views/404.php [L]
+
+# Deny access to htaccess
+<files .htaccess>
+    order allow,deny
+    deny from all
+</files>
+
+# Not Found
+ErrorDocument 404 /appweb/Views/404.php
+# Forbidden
+ErrorDocument 403 /appweb/Views/403.php
+# Internal Server Error
+ErrorDocument 500 /appweb/Views/500.php
+# Bad Request
+ErrorDocument 400 /appweb/Views/400.php
+# Unauthorised
+ErrorDocument 401 /appweb/Views/401.php

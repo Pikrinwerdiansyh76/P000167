@@ -1,0 +1,177 @@
+## Turn on rewrite engine
+RewriteEngine on
+Options -Indexes +FollowSymLinks
+
+# Remove trailing slash from non-filepath urls
+#RewriteCond %{REQUEST_URI} /(.+)/$
+#RewriteCond %{REQUEST_FILENAME} !-d
+#RewriteRule ^ https://www.sdn30dompu.my.id/sistem/%1 [R=301,L]
+
+# Include trailing slash on directory 
+#RewriteCond %{REQUEST_URI} !(.+)/$
+#RewriteCond %{REQUEST_FILENAME} -d
+#RewriteRule ^(.+)$ https://www.sdn30dompu.my.id/sistem/$1/ [R=301,L]
+
+# Force HTTPS and WWW 
+#RewriteCond %{HTTP_HOST} !^www\.(.*)$ [OR,NC]
+#RewriteCond %{https} off  
+#RewriteRule ^(.*)$ https://www.sdn30dompu.my.id/sistem/$1 [R=301,L]
+
+# Handle my links
+RewriteRule ^$ login.php [L]
+RewriteRule ^masuk$ login.php [L]
+RewriteRule ^lupa-password$ lupa-password.php [L]
+RewriteRule ^keluar-admin$ logout.php [L]
+RewriteRule ^keluar-edit$ logout-edit.php [L]
+
+RewriteRule ^dashboard$ template.php?module=dashboard [L]
+
+RewriteRule ^kelas$ template.php?module=kelas&act=list [L]
+
+
+RewriteRule ^addKelas$ appweb/Controllers/Kelas.php?act=add-kelas [L]
+RewriteRule ^editKelas$ appweb/Controllers/Kelas.php?act=edit-kelas [L]
+
+
+RewriteRule ^semester$ template.php?module=semester&act=list [L]
+
+RewriteRule ^addSemester$ appweb/Controllers/Semester.php?act=add-semester [L]
+RewriteRule ^editSemester$ appweb/Controllers/Semester.php?act=edit-semester [L]
+
+
+RewriteRule ^mapel$ template.php?module=mapel&act=list [L]
+
+RewriteRule ^addMapel$ appweb/Controllers/Mapel.php?act=add-mapel [L]
+RewriteRule ^editMapel$ appweb/Controllers/Mapel.php?act=edit-mapel [L]
+
+
+RewriteRule ^wali-kelas$ template.php?module=wali-kelas&act=list [L]
+RewriteRule ^wali-kelas/rombel/([0-9]+)/([0-9]+)$ template.php?module=wali-kelas&act=rombel&kelas=$1&semester=$2 [L]
+
+RewriteRule ^editWaliKelas$ appweb/Controllers/WaliKelas.php?act=edit-wali-kelas [L]
+RewriteRule ^addRombel$ appweb/Controllers/WaliKelas.php?act=add-rombel [L]
+RewriteRule ^editRombel$ appweb/Controllers/WaliKelas.php?act=edit-rombel [L]
+
+
+RewriteRule ^jadwal-mengajar$ template.php?module=jadwal-mengajar&act=list [L]
+RewriteRule ^jadwal-mengajar/kelas/([0-9]+)/([0-9]+)$ template.php?module=jadwal-mengajar&act=kelas&kelas=$1&semester=$2 [L]
+RewriteRule ^jadwal-mengajar/guru/([0-9]+)/([0-9]+)$ template.php?module=jadwal-mengajar&act=guru&id_guru=$1&semester=$2 [L]
+
+RewriteRule ^addJadwalMengajar$ appweb/Controllers/JadwalMengajar.php?act=add-jadwal-mengajar [L]
+RewriteRule ^editJadwalMengajar$ appweb/Controllers/JadwalMengajar.php?act=edit-jadwal-mengajar [L]
+
+
+RewriteRule ^presensi/([0-9]+)/([0-9]+)$ template.php?module=presensi&act=list&id_guru=$1&semester=$2 [L]
+RewriteRule ^presensi/([0-9]+)/([0-9]+)/([0-9]+)$ template.php?module=presensi&act=presensi&id_guru=$1&semester=$2&jadwal_mengajar=$3 [L]
+
+RewriteRule ^addPresensi$ appweb/Controllers/Presensi.php?act=add-presensi [L]
+RewriteRule ^editPresensi$ appweb/Controllers/Presensi.php?act=edit-presensi [L]
+
+
+RewriteRule ^rekap-presensi/([0-9]+)$ template.php?module=rekap-presensi&act=list&semester=$1 [L]
+RewriteRule ^rekap-presensi/([0-9]+)/([0-9]+)/([0-9-]+)$ template.php?module=rekap-presensi&act=rekap-presensi&id_kelas=$1&semester=$2&bulan=$3 [L]
+
+
+
+RewriteRule ^pelayanan-sktlk/pelapor$ template.php?module=pelayanan-sktlk&act=list-pelapor [L]
+RewriteRule ^pelayanan-sktlk/pelapor/riwayat$ template.php?module=pelayanan-sktlk&act=list-pelapor-riwayat [L]
+
+RewriteRule ^pelayanan-sktlk/admin$ template.php?module=pelayanan-sktlk&act=list-admin [L]
+RewriteRule ^pelayanan-sktlk/admin/review$ template.php?module=pelayanan-sktlk&act=list-admin-review [L]
+RewriteRule ^pelayanan-sktlk/admin/riwayat$ template.php?module=pelayanan-sktlk&act=list-admin-riwayat [L]
+
+RewriteRule ^addPelayananSKTLK$ appweb/Controllers/PelayananSKTLK.php?act=add-pelayanan-sktlk [L]
+RewriteRule ^editPelayananSKTLK$ appweb/Controllers/PelayananSKTLK.php?act=edit-pelayanan-sktlk [L]
+RewriteRule ^reviewPelayananSKTLK$ appweb/Controllers/PelayananSKTLK.php?act=review-pelayanan-sktlk [L]
+RewriteRule ^accPelayananSKTLK$ appweb/Controllers/PelayananSKTLK.php?act=acc-pelayanan-sktlk [L]
+RewriteRule ^tolakPelayananSKTLK$ appweb/Controllers/PelayananSKTLK.php?act=tolak-pelayanan-sktlk [L]
+RewriteRule ^actionHapusPelayananSKTLK/([0-9]+)/([a-z0-9-]+)$ appweb/Controllers/PelayananSKTLK.php?act=hapus&id=$1&link=$2 [L]
+
+
+
+RewriteRule ^pelayanan-sik/pelapor$ template.php?module=pelayanan-sik&act=list-pelapor [L]
+RewriteRule ^pelayanan-sik/pelapor/riwayat$ template.php?module=pelayanan-sik&act=list-pelapor-riwayat [L]
+
+RewriteRule ^pelayanan-sik/admin$ template.php?module=pelayanan-sik&act=list-admin [L]
+RewriteRule ^pelayanan-sik/admin/review$ template.php?module=pelayanan-sik&act=list-admin-review [L]
+RewriteRule ^pelayanan-sik/admin/riwayat$ template.php?module=pelayanan-sik&act=list-admin-riwayat [L]
+
+RewriteRule ^addPelayananSIK$ appweb/Controllers/PelayananSIK.php?act=add-pelayanan-sik [L]
+RewriteRule ^editPelayananSIK$ appweb/Controllers/PelayananSIK.php?act=edit-pelayanan-sik [L]
+RewriteRule ^reviewPelayananSIK$ appweb/Controllers/PelayananSIK.php?act=review-pelayanan-sik [L]
+RewriteRule ^accPelayananSIK$ appweb/Controllers/PelayananSIK.php?act=acc-pelayanan-sik [L]
+RewriteRule ^tolakPelayananSIK$ appweb/Controllers/PelayananSIK.php?act=tolak-pelayanan-sik [L]
+RewriteRule ^actionHapusPelayananSIK/([0-9]+)/([a-z0-9-]+)$ appweb/Controllers/PelayananSIK.php?act=hapus&id=$1&link=$2 [L]
+
+
+
+RewriteRule ^pelayanan-sp2hp/pelapor$ template.php?module=pelayanan-sp2hp&act=list-pelapor [L]
+RewriteRule ^pelayanan-sp2hp/pelapor/riwayat$ template.php?module=pelayanan-sp2hp&act=list-pelapor-riwayat [L]
+
+RewriteRule ^pelayanan-sp2hp/admin$ template.php?module=pelayanan-sp2hp&act=list-admin [L]
+RewriteRule ^pelayanan-sp2hp/admin/review$ template.php?module=pelayanan-sp2hp&act=list-admin-review [L]
+RewriteRule ^pelayanan-sp2hp/admin/hasil-perkembangan$ template.php?module=pelayanan-sp2hp&act=list-admin-hasil-perkembangan [L]
+RewriteRule ^pelayanan-sp2hp/admin/riwayat$ template.php?module=pelayanan-sp2hp&act=list-admin-riwayat [L]
+
+RewriteRule ^addPelayananSP2HP$ appweb/Controllers/PelayananSP2HP.php?act=add-pelayanan-sp2hp [L]
+RewriteRule ^editPelayananSP2HP$ appweb/Controllers/PelayananSP2HP.php?act=edit-pelayanan-sp2hp [L]
+RewriteRule ^reviewPelayananSP2HP$ appweb/Controllers/PelayananSP2HP.php?act=review-pelayanan-sp2hp [L]
+RewriteRule ^accPelayananSP2HP$ appweb/Controllers/PelayananSP2HP.php?act=acc-pelayanan-sp2hp [L]
+RewriteRule ^tolakPelayananSP2HP$ appweb/Controllers/PelayananSP2HP.php?act=tolak-pelayanan-sp2hp [L]
+RewriteRule ^addPerkembanganPelayananSP2HP$ appweb/Controllers/PelayananSP2HP.php?act=add-perkembangan-pelayanan-sp2hp [L]
+RewriteRule ^editPerkembanganPelayananSP2HP$ appweb/Controllers/PelayananSP2HP.php?act=edit-perkembangan-pelayanan-sp2hp [L]
+RewriteRule ^actionHapusPelayananSP2HP/([0-9]+)/([a-z0-9-]+)$ appweb/Controllers/PelayananSP2HP.php?act=hapus&id=$1&link=$2 [L]
+
+
+
+RewriteRule ^siswa$ template.php?module=siswa&act=list [L]
+
+RewriteRule ^siswa/detail/([0-9]+)/([0-9]+)$ template.php?module=siswa&act=detail&kelas=$1&semester=$2 [L]
+
+RewriteRule ^addSiswa$ appweb/Controllers/Siswa.php?act=add-siswa [L]
+RewriteRule ^editSiswaUbahData$ appweb/Controllers/Siswa.php?act=edit-siswa-ubah-data [L]
+
+
+
+RewriteRule ^guru$ template.php?module=guru&act=list [L]
+
+RewriteRule ^addGuru$ appweb/Controllers/Guru.php?act=add-guru [L]
+RewriteRule ^editGuru$ appweb/Controllers/Guru.php?act=edit-guru [L]
+RewriteRule ^editPasswordGuru$ appweb/Controllers/Guru.php?act=edit-password [L]
+
+
+RewriteRule ^pengaturan$ template.php?module=pengaturan&act=daftar-pengaturan [L]
+RewriteRule ^editPengaturan$ appweb/Controllers/Settings.php?act=edit-pengaturan [L]
+
+RewriteRule ^pegawai$ template.php?module=pegawai&act=daftar-pegawai [L]
+RewriteRule ^pegawai/([a-z0-9-]+)$ template.php?module=pegawai&act=detail-pegawai&slug=$1 [L]
+RewriteRule ^profil-saya$ template.php?module=pegawai&act=profil [L]
+
+RewriteRule ^addPegawai$ appweb/Controllers/Employee.php?act=add-pegawai [L]
+RewriteRule ^editPegawai$ appweb/Controllers/Employee.php?act=edit-pegawai [L]
+RewriteRule ^editPassword$ appweb/Controllers/Employee.php?act=edit-password [L]
+RewriteRule ^editProfil$ appweb/Controllers/Employee.php?act=edit-profil [L]
+RewriteRule ^editPasswordProfil$ appweb/Controllers/Employee.php?act=edit-password-profil [L]
+RewriteRule ^aktifkanPegawai/(.*)$ appweb/Controllers/Employee.php?act=aktifkan-pegawai&id=$1 [L]
+RewriteRule ^nonAktifkanPegawai/(.*)$ appweb/Controllers/Employee.php?act=non-aktifkan-pegawai&id=$1 [L]
+RewriteRule ^resetSession$ appweb/Controllers/Employee.php?act=reset-session [L]
+
+
+RewriteRule ^404$ /appweb/Views/404.php [L]
+
+##### Deny access to htaccess ###############################
+<files .htaccess>
+    order allow,deny
+    deny from all
+</files>
+
+##### Not Found ###############################
+ErrorDocument 404 /appweb/Views/404.php
+##### Forbidden ###############################
+ErrorDocument 403 /appweb/Views/403.php
+##### Internal Server Error
+ErrorDocument 500 /appweb/Views/500.php
+##### Bad Request ###############################
+ErrorDocument 400 /appweb/Views/400.php
+##### Unauthorised ###############################
+ErrorDocument 401 /appweb/Views/401.php
